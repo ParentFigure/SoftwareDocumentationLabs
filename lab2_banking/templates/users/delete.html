@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Видалити користувача{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Видалити користувача</h2>
+    <p>Ти дійсно хочеш видалити клієнта <strong>{{ user.full_name }}</strong> ({{ user.customer_no }})?</p>
+    {% if user.account_count > 0 %}
+    <p class="muted">Увага: видалення заблоковане, доки у клієнта є пов'язані рахунки.</p>
+    {% endif %}
+    <form method="post">
+        <button class="btn btn-danger" type="submit">Підтвердити видалення</button>
+        <a class="btn btn-secondary" href="{{ url_for('users.details', user_id=user.user_id) }}">Скасувати</a>
+    </form>
+</div>
+{% endblock %}

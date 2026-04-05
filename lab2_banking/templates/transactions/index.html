@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Список транзакцій{% endblock %}
+{% block content %}
+<div class="card">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+    <div>
+      <h2>Список транзакцій</h2>
+      <p class="muted">Транзакції також можна переглядати окремо, але вони залишаються операціями конкретного рахунку.</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('transactions.create') }}">+ Додати транзакцію</a>
+  </div>
+</div>
+<div class="card">
+<table>
+<thead><tr><th>Дата</th><th>Клієнт</th><th>IBAN</th><th>Тип</th><th>Сума</th><th>Статус</th><th>Деталі</th><th>Дії</th></tr></thead>
+<tbody>
+{% for tx in transactions %}
+<tr><td>{{ tx.created_at }}</td><td>{{ tx.full_name }}</td><td>{{ tx.iban }}</td><td>{{ tx.tx_type }}</td><td>{{ '%.2f'|format(tx.amount) }}</td><td>{{ tx.status }}</td><td>{{ tx.extra }}</td><td class="actions"><a class="btn btn-primary" href="{{ url_for('transactions.details', tx_id=tx.tx_id) }}">Деталі</a><a class="btn btn-warning" href="{{ url_for('transactions.edit', tx_id=tx.tx_id) }}">Редагувати</a><a class="btn btn-danger" href="{{ url_for('transactions.delete', tx_id=tx.tx_id) }}">Видалити</a></td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

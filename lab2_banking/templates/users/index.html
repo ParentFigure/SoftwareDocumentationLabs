@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Користувачі{% endblock %}
+{% block content %}
+<div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div>
+            <h2>Список користувачів</h2>
+            <p class="muted">Користувачі є пов'язаною сутністю. Основною сутністю предметної області залишається рахунок, але кожен рахунок належить конкретному клієнту банку.</p>
+        </div>
+        <a class="btn btn-primary" href="{{ url_for('users.create') }}">+ Додати користувача</a>
+    </div>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>ПІБ</th>
+                <th>№ клієнта</th>
+                <th>Телефон</th>
+                <th>Email</th>
+                <th>Рахунків</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.full_name }}</td>
+                <td>{{ user.customer_no }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.account_count }}</td>
+                <td class="actions">
+                    <a class="btn btn-primary" href="{{ url_for('users.details', user_id=user.user_id) }}">Деталі</a>
+                    <a class="btn btn-warning" href="{{ url_for('users.edit', user_id=user.user_id) }}">Редагувати</a>
+                    <a class="btn btn-danger" href="{{ url_for('users.delete', user_id=user.user_id) }}">Видалити</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

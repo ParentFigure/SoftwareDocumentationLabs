@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Редагувати користувача{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Редагувати користувача</h2>
+    <form method="post">
+        <label>Номер клієнта</label>
+        <input type="text" name="customer_no" value="{{ user.customer_no }}" required>
+
+        <label>ПІБ</label>
+        <input type="text" name="full_name" value="{{ user.full_name }}" required>
+
+        <label>Телефон</label>
+        <input type="text" name="phone" value="{{ user.phone }}" required>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ user.email }}" required>
+
+        <label>Пароль/хеш</label>
+        <input type="text" name="password_hash" value="{{ user.password_hash }}" required>
+
+        <button class="btn btn-warning" type="submit">Зберегти зміни</button>
+        <a class="btn btn-secondary" href="{{ url_for('users.details', user_id=user.user_id) }}">Назад</a>
+    </form>
+</div>
+{% endblock %}
