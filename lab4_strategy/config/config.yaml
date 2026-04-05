@@ -1,0 +1,26 @@
+dataset:
+  url: "https://data.cityofnewyork.us/resource/nc67-uf89.csv?$limit=1000"
+  local_csv_path: "data/open_parking_and_camera_violations.csv"
+  timeout_seconds: 60
+  request_headers:
+    Accept: "text/csv"
+
+output:
+  strategy: "kafka"   # console | file | redis | kafka
+  line_limit: 15
+  clear_before_write: true
+
+  file:
+    path: "output/violations_output.txt"
+
+  redis:
+    host: "localhost"
+    port: 6379
+    db: 0
+    list_key: "violations:list"
+
+  kafka:
+    bootstrap_servers:
+      - "localhost:9092"
+    topic: "violations-topic"
+    client_id: "lab4-strategy-producer"
