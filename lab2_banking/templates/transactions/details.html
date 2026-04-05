@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Деталі транзакції{% endblock %}
+{% block content %}
+<div class="card"><h2>Деталі транзакції</h2><div class="grid"><div><strong>Клієнт:</strong><br>{{ tx.full_name }}</div><div><strong>№ клієнта:</strong><br>{{ tx.customer_no }}</div><div><strong>IBAN:</strong><br>{{ tx.iban }}</div><div><strong>Дата:</strong><br>{{ tx.created_at }}</div><div><strong>Тип:</strong><br>{{ tx.tx_type }}</div><div><strong>Сума:</strong><br>{{ '%.2f'|format(tx.amount) }}</div><div><strong>Статус:</strong><br>{{ tx.status }}</div><div><strong>Деталі:</strong><br>{{ tx.extra }}</div></div><div class="actions" style="margin-top:16px;"><a class="btn btn-warning" href="{{ url_for('transactions.edit', tx_id=tx.tx_id) }}">Редагувати</a><a class="btn btn-danger" href="{{ url_for('transactions.delete', tx_id=tx.tx_id) }}">Видалити</a><a class="btn btn-secondary" href="{{ url_for('transactions.index') }}">До списку</a></div></div>
+{% endblock %}

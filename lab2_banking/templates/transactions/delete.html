@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Видалити транзакцію{% endblock %}
+{% block content %}
+<div class="card"><h2>Підтвердження видалення</h2><p>Видалити транзакцію <strong>{{ tx.tx_type }}</strong> від <strong>{{ tx.created_at }}</strong> по рахунку <strong>{{ tx.iban }}</strong>?</p><form method="post"><button class="btn btn-danger" type="submit">Так, видалити</button> <a class="btn btn-secondary" href="{{ url_for('transactions.details', tx_id=tx.tx_id) }}">Скасувати</a></form></div>
+{% endblock %}

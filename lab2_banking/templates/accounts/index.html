@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Список рахунків{% endblock %}
+{% block content %}
+<div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div>
+            <h2>Список банківських рахунків</h2>
+            <p class="muted">Основна сутність предметної області — рахунок клієнта, бо саме через рахунок об'єднуються користувач, картки та транзакції. Додатково доступні окремі розділи для карток і транзакцій, але центром бізнес-логіки залишається рахунок.</p>
+        </div>
+        <a class="btn btn-primary" href="{{ url_for('accounts.create') }}">+ Додати рахунок</a>
+    </div>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>Клієнт</th>
+                <th>№ клієнта</th>
+                <th>IBAN</th>
+                <th>Валюта</th>
+                <th>Баланс</th>
+                <th>Карток</th>
+                <th>Транзакцій</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for account in accounts %}
+            <tr>
+                <td>{{ account.full_name }}</td>
+                <td>{{ account.customer_no }}</td>
+                <td>{{ account.iban }}</td>
+                <td>{{ account.currency }}</td>
+                <td>{{ '%.2f'|format(account.balance) }}</td>
+                <td>{{ account.card_count }}</td>
+                <td>{{ account.transaction_count }}</td>
+                <td class="actions">
+                    <a class="btn btn-primary" href="{{ url_for('accounts.details', account_id=account.account_id) }}">Деталі</a>
+                    <a class="btn btn-warning" href="{{ url_for('accounts.edit', account_id=account.account_id) }}">Редагувати</a>
+                    <a class="btn btn-danger" href="{{ url_for('accounts.delete', account_id=account.account_id) }}">Видалити</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

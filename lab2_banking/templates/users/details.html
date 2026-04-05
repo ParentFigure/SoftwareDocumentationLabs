@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Деталі користувача{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>{{ user.full_name }}</h2>
+    <div class="grid">
+        <div><strong>Номер клієнта:</strong><br>{{ user.customer_no }}</div>
+        <div><strong>Телефон:</strong><br>{{ user.phone }}</div>
+        <div><strong>Email:</strong><br>{{ user.email }}</div>
+        <div><strong>Кількість рахунків:</strong><br>{{ user.account_count }}</div>
+    </div>
+    <p><strong>Хеш пароля:</strong> <code>{{ user.password_hash }}</code></p>
+    <div class="actions">
+        <a class="btn btn-warning" href="{{ url_for('users.edit', user_id=user.user_id) }}">Редагувати</a>
+        <a class="btn btn-danger" href="{{ url_for('users.delete', user_id=user.user_id) }}">Видалити</a>
+        <a class="btn btn-secondary" href="{{ url_for('users.index') }}">Назад до списку</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Рахунки користувача</h3>
+    {% if user.accounts %}
+    <table>
+        <thead>
+            <tr>
+                <th>IBAN</th>
+                <th>Валюта</th>
+                <th>Баланс</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for account in user.accounts %}
+            <tr>
+                <td>{{ account.iban }}</td>
+                <td>{{ account.currency }}</td>
+                <td>{{ '%.2f'|format(account.balance) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">У цього користувача ще немає рахунків.</p>
+    {% endif %}
+</div>
+{% endblock %}
