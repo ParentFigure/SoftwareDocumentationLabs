@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Список карток{% endblock %}
+{% block content %}
+<div class="card">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+    <div>
+      <h2>Список карток</h2>
+      <p class="muted">Окремий список карток доступний для додаткових GET-запитів, але картка завжди прив'язана до рахунку.</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('cards.create') }}">+ Додати картку</a>
+  </div>
+</div>
+<div class="card">
+<table>
+<thead><tr><th>Клієнт</th><th>№ клієнта</th><th>IBAN</th><th>Картка</th><th>Статус</th><th>Дії</th></tr></thead>
+<tbody>
+{% for card in cards %}
+<tr>
+<td>{{ card.full_name }}</td><td>{{ card.customer_no }}</td><td>{{ card.iban }}</td><td>{{ card.masked_pan }}</td><td>{{ card.status }}</td>
+<td class="actions"><a class="btn btn-primary" href="{{ url_for('cards.details', card_id=card.card_id) }}">Деталі</a><a class="btn btn-warning" href="{{ url_for('cards.edit', card_id=card.card_id) }}">Редагувати</a><a class="btn btn-danger" href="{{ url_for('cards.delete', card_id=card.card_id) }}">Видалити</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

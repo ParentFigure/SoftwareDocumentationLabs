@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Редагувати картку{% endblock %}
+{% block content %}
+<div class="card"><h2>Редагування картки</h2><form method="post">
+<label>Рахунок</label><select name="account_id" required><option value="">Оберіть рахунок</option>{% for account in accounts %}<option value="{{ account.account_id }}" {% if card.account_id == account.account_id %}selected{% endif %}>{{ account.full_name }} — {{ account.iban }}</option>{% endfor %}</select>
+<label>Маскований номер</label><input type="text" name="masked_pan" value="{{ card.masked_pan }}" required>
+<label>Статус</label><select name="status">{% for status in statuses %}<option value="{{ status }}" {% if card.status == status %}selected{% endif %}>{{ status }}</option>{% endfor %}</select>
+<button class="btn btn-warning" type="submit">Оновити</button> <a class="btn btn-secondary" href="{{ url_for('cards.details', card_id=card.card_id) }}">Назад</a>
+</form></div>
+{% endblock %}

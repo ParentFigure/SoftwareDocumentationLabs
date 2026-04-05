@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Деталі рахунку{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Деталі рахунку</h2>
+    <div class="grid">
+        <div><strong>Клієнт:</strong><br>{{ account.full_name }}</div>
+        <div><strong>№ клієнта:</strong><br>{{ account.customer_no }}</div>
+        <div><strong>IBAN:</strong><br>{{ account.iban }}</div>
+        <div><strong>Валюта:</strong><br>{{ account.currency }}</div>
+        <div><strong>Баланс:</strong><br>{{ '%.2f'|format(account.balance) }}</div>
+        <div><strong>Карток:</strong><br>{{ account.cards|length }}</div>
+    </div>
+    <div class="actions" style="margin-top:16px;">
+        <a class="btn btn-primary" href="{{ url_for('cards.create') }}">Додати картку</a>
+        <a class="btn btn-primary" href="{{ url_for('transactions.create') }}">Додати транзакцію</a>
+        <a class="btn btn-warning" href="{{ url_for('accounts.edit', account_id=account.account_id) }}">Редагувати</a>
+        <a class="btn btn-danger" href="{{ url_for('accounts.delete', account_id=account.account_id) }}">Видалити</a>
+        <a class="btn btn-secondary" href="{{ url_for('accounts.index') }}">До списку</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Картки рахунку</h3>
+    <table>
+        <thead><tr><th>Маскований номер</th><th>Статус</th></tr></thead>
+        <tbody>
+            {% for card in account.cards %}
+            <tr><td>{{ card.masked_pan }}</td><td>{{ card.status }}</td></tr>
+            {% else %}
+            <tr><td colspan="2">Немає карток</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Останні транзакції</h3>
+    <table>
+        <thead><tr><th>Дата</th><th>Тип</th><th>Сума</th><th>Статус</th><th>Деталі</th></tr></thead>
+        <tbody>
+            {% for tx in account.transactions %}
+            <tr>
+                <td>{{ tx.created_at }}</td>
+                <td>{{ tx.tx_type }}</td>
+                <td>{{ '%.2f'|format(tx.amount) }}</td>
+                <td>{{ tx.status }}</td>
+                <td>{{ tx.extra }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">Немає транзакцій</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

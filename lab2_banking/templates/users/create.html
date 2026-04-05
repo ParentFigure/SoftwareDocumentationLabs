@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Додати користувача{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Додати нового клієнта банку</h2>
+    <form method="post">
+        <label>Номер клієнта</label>
+        <input type="text" name="customer_no" value="{{ user.customer_no }}" required>
+
+        <label>ПІБ</label>
+        <input type="text" name="full_name" value="{{ user.full_name }}" required>
+
+        <label>Телефон</label>
+        <input type="text" name="phone" value="{{ user.phone }}" required>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ user.email }}" required>
+
+        <label>Пароль/хеш</label>
+        <input type="text" name="password_hash" value="{{ user.password_hash }}" required>
+
+        <button class="btn btn-primary" type="submit">Створити</button>
+        <a class="btn btn-secondary" href="{{ url_for('users.index') }}">Скасувати</a>
+    </form>
+</div>
+{% endblock %}

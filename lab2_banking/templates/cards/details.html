@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Деталі картки{% endblock %}
+{% block content %}
+<div class="card">
+<h2>Деталі картки</h2>
+<div class="grid"><div><strong>Клієнт:</strong><br>{{ card.full_name }}</div><div><strong>№ клієнта:</strong><br>{{ card.customer_no }}</div><div><strong>IBAN:</strong><br>{{ card.iban }}</div><div><strong>Маскований номер:</strong><br>{{ card.masked_pan }}</div><div><strong>Статус:</strong><br>{{ card.status }}</div></div>
+<div class="actions" style="margin-top:16px;"><a class="btn btn-warning" href="{{ url_for('cards.edit', card_id=card.card_id) }}">Редагувати</a><a class="btn btn-danger" href="{{ url_for('cards.delete', card_id=card.card_id) }}">Видалити</a><a class="btn btn-secondary" href="{{ url_for('cards.index') }}">До списку</a></div>
+</div>
+{% endblock %}

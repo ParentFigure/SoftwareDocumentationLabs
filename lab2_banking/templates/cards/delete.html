@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Видалити картку{% endblock %}
+{% block content %}
+<div class="card"><h2>Підтвердження видалення</h2><p>Видалити картку <strong>{{ card.masked_pan }}</strong> для рахунку <strong>{{ card.iban }}</strong>?</p><form method="post"><button class="btn btn-danger" type="submit">Так, видалити</button> <a class="btn btn-secondary" href="{{ url_for('cards.details', card_id=card.card_id) }}">Скасувати</a></form></div>
+{% endblock %}
